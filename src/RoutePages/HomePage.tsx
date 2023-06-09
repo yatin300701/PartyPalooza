@@ -33,7 +33,6 @@ import {
   LoginSpan,
   LoginText,
   Midbody,
-  OptionsInput,
   OurServicesCities,
   PDisplay,
   PWhite,
@@ -54,7 +53,7 @@ import { theme } from "../mui-theme";
 export default function HomePage() {
   const [loginToggle, setLoginToggle] = useState(false);
   const [signupToggle, setSignupToggle] = useState(false);
-  const [reload, setReload] = useState(false);
+  // const [reload, setReload] = useState(false);
 
   // const [location, setLocation] = useState("");
 
@@ -79,7 +78,7 @@ export default function HomePage() {
     };
 
     fetchImage();
-  }, [reload]);
+  }, []);
 
   return (
     <>
