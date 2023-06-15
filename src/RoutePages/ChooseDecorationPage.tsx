@@ -46,11 +46,11 @@ export default function ChooseDecorationPage() {
   }, [reload]);
 
   const handleNext = () => {
-    localStorage.setItem("pageNo", "3");
+    navigate("/speakers");
     setReload((p) => !p);
   };
   const handlePre = () => {
-    localStorage.setItem("pageNo", "1");
+    navigate("/cake");
     setReload((p) => !p);
   };
 

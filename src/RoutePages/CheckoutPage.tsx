@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../Helpers/Navbar";
 import { ChooseCakePageBody } from "../Styles/Cake.style";
 import FooterBodyComponent from "../Helpers/FooterBodyComponent";
@@ -47,13 +46,19 @@ import { Button } from "@mui/material";
 import { theme } from "../mui-theme";
 import LoginComponent from "../Helpers/LoginComponent";
 import SignUpComponent from "../Helpers/SignUpComponent";
+import { MdPersonOutline } from "react-icons/md";
 
 export default function CheckoutPage() {
   const [reload, setReload] = useState(false);
   const [total, setTotal] = useState(0);
-  const [items, setItems] = useState([]);
+  const [user, setUser] = useState("");
+  const [items, setItems] = useState<
+    { quantity: String; name: String; price: String; img: String }[]
+  >([]);
   const [loginToggle, setLoginToggle] = useState(false);
   const [signupToggle, setSignupToggle] = useState(false);
+  const [address, setAddress] = useState("");
+  const [location, setLocation] = useState("");
 
   useEffect(() => {
     let noOfItem = localStorage.getItem("cart");
@@ -61,18 +66,27 @@ export default function CheckoutPage() {
     let item = JSON.parse(noOfItem);
     setItems(item);
 
-    let totalAmount = items.reduce(
-      (pre, data: any) => pre + Number(data?.price) * Number(data?.quantity),
-      0
-    );
-    console.log("total", totalAmount, item);
+    let totalAmount = 0;
+    for (let i = 0; i < item?.length; i++) {
+      totalAmount += Number(item[i]?.price);
+    }
+    console.log("total", totalAmount, items, item);
     setTotal(totalAmount);
 
-    const pageNo = localStorage.getItem("pageNo");
+    // const pageNo = localStorage.getItem("pageNo");
 
-    if (!pageNo || pageNo == null || pageNo == undefined) {
-      localStorage.setItem("pageNo", "1");
-      setReload((p) => !p);
+    // if (!pageNo || pageNo == null || pageNo == undefined) {
+    //   localStorage.setItem("pageNo", "1");
+    //   setReload((p) => !p);
+    // }
+
+    let tuser = localStorage.getItem("user");
+    if (tuser != null || tuser != undefined) {
+      setUser(tuser);
+    }
+    let taddress = localStorage.getItem("address");
+    if (taddress != null || taddress != undefined) {
+      setAddress(taddress);
     }
 
     // if (pageNo === "1") {
@@ -85,6 +99,17 @@ export default function CheckoutPage() {
     //   navigate("#");
     // }
   }, [reload]);
+
+  const handleAddress = () => {
+    localStorage.setItem("address", address);
+    setLocation(address);
+    setReload((p) => !p);
+  };
+  const handleEditAddress = () => {
+    localStorage.removeItem("address");
+    setLocation("");
+    setReload((p) => !p);
+  };
 
   return (
     <>
@@ -102,10 +127,27 @@ export default function CheckoutPage() {
                   </Ap>
                 </AHeading>
                 <Abody>
-                  <HaveAccount onClick={() => setLoginToggle(true)}>
-                    Log In
-                  </HaveAccount>
-                  <SignUp onClick={() => setSignupToggle(true)}>Sign Up</SignUp>
+                  {user == "" ? (
+                    <>
+                      {" "}
+                      <HaveAccount onClick={() => setLoginToggle(true)}>
+                        Log In
+                      </HaveAccount>
+                      <SignUp onClick={() => setSignupToggle(true)}>
+                        Sign Up
+                      </SignUp>
+                    </>
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <MdPersonOutline /> &nbsp;{user}
+                    </div>
+                  )}
                 </Abody>
               </div>
               <div
@@ -125,8 +167,30 @@ export default function CheckoutPage() {
                 <Ap>Please provide us your current address</Ap>
               </AHeading>
               <AbodyC>
-                <AddressInput></AddressInput>
-                <Button style={{ padding: "20px 0px" }}>Add</Button>
+                {location == "" ? (
+                  <>
+                    {" "}
+                    <AddressInput
+                      onChange={(e) => setAddress(e.target.value)}
+                    ></AddressInput>
+                    <Button
+                      style={{ padding: "20px 0px" }}
+                      onClick={handleAddress}
+                    >
+                      Add
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <p>{address}</p>
+                    <Button
+                      style={{ padding: "20px 0px" }}
+                      onClick={handleEditAddress}
+                    >
+                      Edit
+                    </Button>
+                  </>
+                )}
               </AbodyC>
             </Address>
             <hr style={{ border: "1px dotted black" }} />
@@ -209,7 +273,7 @@ export default function CheckoutPage() {
               <BillBP>
                 <BillBSpan>To Pay</BillBSpan>
                 <BillBSpan>
-                  Rs {total + total == 0 ? 0 : 30 + 0.1 * total}
+                  Rs {total + (total == 0 ? 0 : 30) + 0.1 * total}
                 </BillBSpan>
               </BillBP>
               <hr />
@@ -220,6 +284,7 @@ export default function CheckoutPage() {
       <FooterBodyComponent />
       <LoginComponent
         loginToggle={loginToggle}
+        setReload={setReload}
         setLoginToggle={setLoginToggle}
       />
       <SignUpComponent

@@ -10,7 +10,7 @@ import {
 import { theme } from "../mui-theme";
 import { Box, Card } from "@mui/material";
 import { Cakes_data } from "../data/Cakes_data";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FooterBodyComponent from "../Helpers/FooterBodyComponent";
 import CakeCard from "../Helpers/CakeCard";
@@ -18,8 +18,8 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
 export default function ChooseCakePage() {
   const [reload, setReload] = useState(false);
-  const navigate = useNavigate();
   const [items, setItems] = useState("0");
+  const navigate = useNavigate();
 
   useEffect(() => {
     let noOfItem = localStorage.getItem("cartCount");
@@ -45,7 +45,7 @@ export default function ChooseCakePage() {
   }, [reload]);
 
   const handleNext = () => {
-    localStorage.setItem("pageNo", "2");
+    navigate("/decoration");
     setReload((p) => !p);
   };
 

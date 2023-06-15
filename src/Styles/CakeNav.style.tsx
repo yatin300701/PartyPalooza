@@ -13,6 +13,7 @@ export const CakeNavLeft = styled("div")(() => ({
 }));
 export const CompanyImg = styled("img")(() => ({
   width: "200px",
+  cursor: "pointer",
 }));
 export const CakePlace = styled(Link)(() => ({
   display: "flex",

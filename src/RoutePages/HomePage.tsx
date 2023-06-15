@@ -5,29 +5,15 @@ import {
   BenefitsCard,
   BenefitsImg,
   Btn,
-  CloseButton,
   CompanyImg,
-  CreateAccText,
   Description,
   Display,
-  DrawerBottom,
-  DrawerBttn,
-  DrawerInput,
-  DrawerTandC,
-  DrawerTop,
-  Drawerdiv,
   FindLocationBtn,
   HDisplay,
   Heading,
-  HrDwawer,
   LeftDisplay,
   LocationInput,
   LoginBtn,
-  LoginDrawerImg,
-  LoginLeft,
-  LoginRight,
-  LoginSpan,
-  LoginText,
   Midbody,
   OurServicesCities,
   PDisplay,
@@ -43,17 +29,23 @@ import CmpImg from "../assets/Logo.png";
 import { AdvancedImage } from "@cloudinary/react";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { CloudinaryImage } from "@cloudinary/url-gen";
-import { Drawer } from "@mui/material";
 import { theme } from "../mui-theme";
 import FooterBodyComponent from "../Helpers/FooterBodyComponent";
 import LoginComponent from "../Helpers/LoginComponent";
 import SignUpComponent from "../Helpers/SignUpComponent";
+import SnackbarComponent from "../Helpers/Snackbar";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [loginToggle, setLoginToggle] = useState(false);
   const [signupToggle, setSignupToggle] = useState(false);
+  const [location, setLocation] = useState("");
   const [reload, setReload] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
 
+  const navigate = useNavigate();
   // const [location, setLocation] = useState("");
 
   // const sentences: string[] = [
@@ -78,6 +70,24 @@ export default function HomePage() {
 
     fetchImage();
   }, [reload]);
+
+  const handleFindFood = () => {
+    if (
+      location === "Delhi" ||
+      location === "Mumbai" ||
+      location === "Gurgaon"
+    ) {
+      localStorage.setItem("location", location);
+      setMessage("Sucessfully Saved your location");
+      setType("success");
+      setOpen(true);
+      navigate("/cake");
+    } else {
+      setMessage("Sorry, we are currently in Delhi,Mumbai and Gurgaon only");
+      setType("error");
+      setOpen(true);
+    }
+  };
 
   return (
     <>
@@ -105,155 +115,14 @@ export default function HomePage() {
                   Sign up
                 </SignInBtn>
                 <LoginComponent
+                  setReload={setReload}
                   loginToggle={loginToggle}
                   setLoginToggle={setLoginToggle}
                 />
-                {/* <Drawer
-                  anchor={"right"}
-                  open={loginToggle}
-                  onClose={() => setLoginToggle(false)}
-                >
-                  <Drawerdiv>
-                    <CloseButton onClick={() => setLoginToggle(false)}>
-                      x
-                    </CloseButton>
-                    <DrawerTop>
-                      <LoginLeft>
-                        <LoginText>Login</LoginText>
-                        <CreateAccText>
-                          or <LoginSpan>create an account</LoginSpan>
-                        </CreateAccText>
-                      </LoginLeft>
-                      <LoginRight>
-                        <LoginDrawerImg src="https://www.allrecipes.com/thmb/beS8LVFvG9oxFe9UgGA3Bn3WG64=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/708879-One-Bowl-Chocolate-Cake-III-Dianne-4x3-0b686cb5d1d647cabefd86545b1bccdf.jpg"></LoginDrawerImg>
-                      </LoginRight>
-                    </DrawerTop>
-                    <HrDwawer></HrDwawer>
-                    <DrawerBottom>
-                      <DrawerInput
-                        label="Phone Number"
-                        type="number"
-                        sx={{
-                          "& .MuiInputLabel-root": {
-                            color: theme.customPalette.Grey,
-                            opacity: 0.5,
-                          }, //styles the label
-                          "& .MuiOutlinedInput-root.Mui-focused": {
-                            "& > fieldset": {
-                              borderColor: theme.customPalette.Grey,
-                              border: "1px solid rgb(83, 86, 101,0.5)",
-                            },
-                          },
-                        }}
-                        InputProps={{
-                          style: {
-                            borderRadius: "0px",
-                          },
-                        }}
-                      ></DrawerInput>
-                      <DrawerBttn>Login</DrawerBttn>
-                      <DrawerTandC>
-                        By clicking on Login, I accept the
-                        <b>Terms & Conditions & Privacy Policy</b>
-                      </DrawerTandC>
-                    </DrawerBottom>
-                  </Drawerdiv>
-                </Drawer> */}
                 <SignUpComponent
                   signupToggle={signupToggle}
                   setSignupToggle={setSignupToggle}
                 />
-                {/* <Drawer
-                  anchor={"right"}
-                  open={signupToggle}
-                  onClose={() => setSignupToggle(false)}
-                >
-                  <Drawerdiv>
-                    <CloseButton onClick={() => setSignupToggle(false)}>
-                      x
-                    </CloseButton>
-                    <DrawerTop>
-                      <LoginLeft>
-                        <LoginText>Sign up</LoginText>
-                        <CreateAccText>
-                          or <LoginSpan>login to your account</LoginSpan>
-                        </CreateAccText>
-                      </LoginLeft>
-                      <LoginRight>
-                        <LoginDrawerImg src="https://stylesweet.com/wp-content/uploads/2022/06/ChocolateCakeForTwo_Featured.jpg"></LoginDrawerImg>
-                      </LoginRight>
-                    </DrawerTop>
-                    <HrDwawer></HrDwawer>
-                    <DrawerBottom>
-                      <DrawerInput
-                        label="Phone Number"
-                        type="number"
-                        sx={{
-                          "& .MuiInputLabel-root": {
-                            color: theme.customPalette.Grey,
-                            opacity: 0.5,
-                          }, //styles the label
-                          "& .MuiOutlinedInput-root.Mui-focused": {
-                            "& > fieldset": {
-                              borderColor: theme.customPalette.Grey,
-                              border: "1px solid rgb(83, 86, 101,0.5)",
-                            },
-                          },
-                        }}
-                        InputProps={{
-                          style: {
-                            borderRadius: "0px",
-                          },
-                        }}
-                      ></DrawerInput>
-                      <DrawerInput
-                        label="Name"
-                        sx={{
-                          "& .MuiInputLabel-root": {
-                            color: theme.customPalette.Grey,
-                            opacity: 0.5,
-                          }, //styles the label
-                          "& .MuiOutlinedInput-root.Mui-focused": {
-                            "& > fieldset": {
-                              borderColor: theme.customPalette.Grey,
-                              border: "1px solid rgb(83, 86, 101,0.5)",
-                            },
-                          },
-                        }}
-                        InputProps={{
-                          style: {
-                            borderRadius: "0px",
-                          },
-                        }}
-                      ></DrawerInput>
-                      <DrawerInput
-                        label="Email"
-                        sx={{
-                          "& .MuiInputLabel-root": {
-                            color: theme.customPalette.Grey,
-                            opacity: 0.5,
-                          }, //styles the label
-                          "& .MuiOutlinedInput-root.Mui-focused": {
-                            "& > fieldset": {
-                              borderColor: theme.customPalette.Grey,
-                              border: "1px solid rgb(83, 86, 101,0.5)",
-                            },
-                          },
-                        }}
-                        InputProps={{
-                          style: {
-                            borderRadius: "0px",
-                          },
-                        }}
-                      ></DrawerInput>
-                      <DrawerBttn>Login</DrawerBttn>
-                      <DrawerTandC>
-                        By clicking on Login, I accept the
-                        <b>Terms & Conditions & Privacy Policy</b>
-                      </DrawerTandC>
-                    </DrawerBottom>
-                  </Drawerdiv>
-                </Drawer> */}
               </Btn>
             </Heading>
             <Description>
@@ -276,20 +145,13 @@ export default function HomePage() {
                   },
                 }}
                 placeholder={"Enter your delivery location"}
+                onChange={(e) => setLocation(e.target.value)}
               ></LocationInput>
-              <FindLocationBtn variant="contained"> Find Food</FindLocationBtn>
+              <FindLocationBtn variant="contained" onClick={handleFindFood}>
+                {" "}
+                Find Food
+              </FindLocationBtn>
             </SearchBar>
-            {/* <OptionsInput
-              disabled
-              defaultValue="Hello"  
-              variant="filled"
-              sx={{
-                "& .MuiInputBase-root": {
-                  width: "640px",
-                  backgroundColor: "white",
-                },
-              }}
-            ></OptionsInput> */}
             <br />
             <OurServicesCities>
               <p>SERVICE AVAILABLE CURRENTLY</p>
@@ -364,6 +226,12 @@ export default function HomePage() {
         </RightDisplay>
       </Midbody>
       <FooterBodyComponent />
+      <SnackbarComponent
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        type={type}
+      />
     </>
   );
 }

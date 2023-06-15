@@ -8,10 +8,14 @@ import {
 } from "../Styles/Cake.style";
 import StarIcon from "@mui/icons-material/Star";
 import { useEffect, useState } from "react";
+import SnackbarComponent from "./Snackbar";
 
 export default function CakeCard(props: any) {
   const [count, setCount] = useState("0");
   const [reload, setReload] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     let items = localStorage.getItem(
@@ -56,7 +60,9 @@ export default function CakeCard(props: any) {
     // store
     localStorage.setItem("cartCount", cartItemsCount.toString());
     localStorage.setItem("cart", JSON.stringify(cartItems));
-
+    setMessage("Added to Cart");
+    setType("success");
+    setOpen(true);
     setReload((p) => !p);
     props.topReload((p: any) => !p);
   };
@@ -92,6 +98,9 @@ export default function CakeCard(props: any) {
     localStorage.setItem("cartCount", cartItemsCount.toString());
     localStorage.setItem("cart", JSON.stringify(cartItems));
 
+    setMessage("Removed from Cart");
+    setType("warning");
+    setOpen(true);
     setReload((p) => !p);
     props.topReload((p: any) => !p);
   };
@@ -167,6 +176,12 @@ export default function CakeCard(props: any) {
           )}
         </ButtonTopography>
       </CardContent>
+      <SnackbarComponent
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        type={type}
+      />
     </>
   );
 }

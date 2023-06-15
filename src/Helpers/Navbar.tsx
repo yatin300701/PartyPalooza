@@ -17,18 +17,28 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [loginToggle, setLoginToggle] = useState(false);
   const [localtion, setLocation] = useState("Other");
+  const [user, setUser] = useState("");
+  const [reload, setReload] = useState(false);
   useEffect(() => {
+    let tuse = localStorage.getItem("user");
     let loc = localStorage.getItem("location");
 
     if (loc != undefined && loc != null) {
       setLocation(loc);
     }
-  }, []);
+    if (tuse != undefined && tuse != null) {
+      setUser(tuse);
+    }
+  }, [reload]);
+
   return (
     <>
       <CakeNavBody>
         <CakeNavLeft>
-          <CompanyImg src={CompanyLogo}></CompanyImg>
+          <CompanyImg
+            src={CompanyLogo}
+            onClick={() => navigate("/")}
+          ></CompanyImg>
           <CakePlace onClick={() => navigate("#")}>
             {localtion} <IoMdArrowDropdown />
           </CakePlace>
@@ -39,10 +49,18 @@ export default function Navbar() {
           </CakePlace>
           <CakePlace
             onClick={() => {
-              setLoginToggle(true);
+              user == "" ? setLoginToggle(true) : "";
             }}
           >
-            <MdPersonOutline /> Sign In
+            {user != "" ? (
+              <>
+                <MdPersonOutline /> {user}
+              </>
+            ) : (
+              <>
+                <MdPersonOutline /> Sign In
+              </>
+            )}
           </CakePlace>
           <CakePlace onClick={() => navigate("/checkout")}>
             <AiOutlineShoppingCart /> Cart
@@ -50,6 +68,7 @@ export default function Navbar() {
         </CakeNavRight>
       </CakeNavBody>
       <LoginComponent
+        setReload={setReload}
         loginToggle={loginToggle}
         setLoginToggle={setLoginToggle}
       />

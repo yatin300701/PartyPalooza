@@ -47,12 +47,10 @@ export default function ChooseSpeakerPage() {
   }, [reload]);
 
   const handleNext = () => {
-    localStorage.setItem("pageNo", "4");
-    setReload((p) => !p);
+    navigate("/checkout");
   };
   const handlePre = () => {
-    localStorage.setItem("pageNo", "2");
-    setReload((p) => !p);
+    navigate("/decoration");
   };
 
   return (
