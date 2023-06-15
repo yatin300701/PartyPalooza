@@ -9,13 +9,11 @@ import {
 } from "../Styles/Cake.style";
 import { theme } from "../mui-theme";
 import { Box, Card } from "@mui/material";
-import { Cakes_data } from "../data/Cakes_data";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FooterBodyComponent from "../Helpers/FooterBodyComponent";
 import CakeCard from "../Helpers/CakeCard";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import { Decoration_data } from "../data/Decoration_data";
 import { Speakers_data } from "../data/Speakers_data";
 
 export default function ChooseSpeakerPage() {
