@@ -10,7 +10,7 @@ import {
 import { theme } from "../mui-theme";
 import { Box, Card } from "@mui/material";
 import { Cakes_data } from "../data/Cakes_data";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FooterBodyComponent from "../Helpers/FooterBodyComponent";
 import CakeCard from "../Helpers/CakeCard";
