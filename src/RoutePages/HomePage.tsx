@@ -8,7 +8,6 @@ import {
   CloseButton,
   CompanyImg,
   CreateAccText,
-  DWhite,
   Description,
   Display,
   DrawerBottom,
@@ -18,9 +17,6 @@ import {
   DrawerTop,
   Drawerdiv,
   FindLocationBtn,
-  FooterBody,
-  FooterBox,
-  FooterBoxHeading,
   HDisplay,
   Heading,
   HrDwawer,
@@ -33,7 +29,6 @@ import {
   LoginSpan,
   LoginText,
   Midbody,
-  OptionsInput,
   OurServicesCities,
   PDisplay,
   PWhite,
@@ -50,6 +45,9 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 import { CloudinaryImage } from "@cloudinary/url-gen";
 import { Drawer } from "@mui/material";
 import { theme } from "../mui-theme";
+import FooterBodyComponent from "../Helpers/FooterBodyComponent";
+import LoginComponent from "../Helpers/LoginComponent";
+import SignUpComponent from "../Helpers/SignUpComponent";
 
 export default function HomePage() {
   const [loginToggle, setLoginToggle] = useState(false);
@@ -72,7 +70,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        console.log("response", myImage);
+        localStorage.clear();
       } catch (error) {
         console.error("Error fetching image:", error);
       }
@@ -106,8 +104,11 @@ export default function HomePage() {
                 >
                   Sign up
                 </SignInBtn>
-
-                <Drawer
+                <LoginComponent
+                  loginToggle={loginToggle}
+                  setLoginToggle={setLoginToggle}
+                />
+                {/* <Drawer
                   anchor={"right"}
                   open={loginToggle}
                   onClose={() => setLoginToggle(false)}
@@ -157,9 +158,12 @@ export default function HomePage() {
                       </DrawerTandC>
                     </DrawerBottom>
                   </Drawerdiv>
-                </Drawer>
-
-                <Drawer
+                </Drawer> */}
+                <SignUpComponent
+                  signupToggle={signupToggle}
+                  setSignupToggle={setSignupToggle}
+                />
+                {/* <Drawer
                   anchor={"right"}
                   open={signupToggle}
                   onClose={() => setSignupToggle(false)}
@@ -249,7 +253,7 @@ export default function HomePage() {
                       </DrawerTandC>
                     </DrawerBottom>
                   </Drawerdiv>
-                </Drawer>
+                </Drawer> */}
               </Btn>
             </Heading>
             <Description>
@@ -359,35 +363,7 @@ export default function HomePage() {
           <PhoneImg src="https://res.cloudinary.com/dhlgspecl/image/upload/v1685568571/cakeWeb_iphone13blue_portrait_mh9lug.png"></PhoneImg>
         </RightDisplay>
       </Midbody>
-      <FooterBody>
-        <FooterBox>
-          <FooterBoxHeading>COMPANY</FooterBoxHeading>
-          <DWhite>
-            <span>About Us</span>
-            <span>Team</span>
-            <span>Careers</span>
-          </DWhite>
-        </FooterBox>
-        <FooterBox>
-          <FooterBoxHeading>CONTACT</FooterBoxHeading>
-          <DWhite>
-            <span>Help</span>
-            <span>Parnter with us</span>
-            <span>Ride with us </span>
-          </DWhite>
-        </FooterBox>
-        <FooterBox>
-          <FooterBoxHeading>LEGAL </FooterBoxHeading>
-          <DWhite>
-            <span>Terms and Conditions</span>
-            <span>Refund Policy</span>
-          </DWhite>
-        </FooterBox>
-        <FooterBox>
-          <AppDonloadImg src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/play_ip0jfp"></AppDonloadImg>
-          <AppDonloadImg src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/iOS_ajgrty"></AppDonloadImg>
-        </FooterBox>
-      </FooterBody>
+      <FooterBodyComponent />
     </>
   );
 }
