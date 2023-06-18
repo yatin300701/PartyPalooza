@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   AppDonloadImg,
+  AppDonloadImgMid,
   Benefits,
   BenefitsCard,
   BenefitsImg,
@@ -18,6 +19,7 @@ import {
   OurServicesCities,
   PDisplay,
   PWhite,
+  PartyPImg,
   PhoneImg,
   RightDisplay,
   SearchBar,
@@ -96,7 +98,7 @@ export default function HomePage() {
           <LeftDisplay>
             <Heading>
               <CompanyImg>
-                <img src={CmpImg} alt="Company Logo" width={350} />
+                <PartyPImg src={CmpImg} alt="Company Logo"></PartyPImg>
               </CompanyImg>
               <Btn>
                 <LoginBtn
@@ -218,8 +220,8 @@ export default function HomePage() {
             Order from your favorite restaurants & track on the go.
           </PDisplay>
           <br />
-          <AppDonloadImg src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/play_ip0jfp"></AppDonloadImg>
-          <AppDonloadImg src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/iOS_ajgrty"></AppDonloadImg>
+          <AppDonloadImgMid src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/play_ip0jfp"></AppDonloadImgMid>
+          <AppDonloadImgMid src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/iOS_ajgrty"></AppDonloadImgMid>
         </LeftDisplay>
         <RightDisplay>
           <PhoneImg src="https://res.cloudinary.com/dhlgspecl/image/upload/v1685568571/cakeWeb_iphone13blue_portrait_mh9lug.png"></PhoneImg>

@@ -4,6 +4,7 @@ import {
   FooterBody,
   FooterBox,
   FooterBoxHeading,
+  FooterBoxLast,
 } from "../Styles/Home.style";
 
 export default function FooterBodyComponent() {
@@ -33,10 +34,10 @@ export default function FooterBodyComponent() {
             <span>Refund Policy</span>
           </DWhite>
         </FooterBox>
-        <FooterBox>
+        <FooterBoxLast>
           <AppDonloadImg src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/play_ip0jfp"></AppDonloadImg>
           <AppDonloadImg src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_108/iOS_ajgrty"></AppDonloadImg>
-        </FooterBox>
+        </FooterBoxLast>
       </FooterBody>
     </>
   );

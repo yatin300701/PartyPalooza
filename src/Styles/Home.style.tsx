@@ -8,6 +8,19 @@ export const Benefits = styled("div")((props) => ({
   justifyContent: "space-evenly",
   alignItems: "center",
   height: "350px",
+  "@media(max-width:620px)": {
+    display: "grid",
+    gridTemplateColumns: "repeat(2,1fr)",
+    height: "auto",
+    padding: "100px 10px",
+  },
+  "@media(max-width:543px)": {
+    display: "flex",
+    // gridTemplateColumns: "repeat(2,1fr)",
+    // height: "auto",
+    flexDirection: "column",
+    padding: "100px 10px",
+  },
 }));
 export const BenefitsCard = styled("div")(() => ({
   display: "flex",
@@ -19,6 +32,9 @@ export const BenefitsCard = styled("div")(() => ({
 export const BenefitsImg = styled("img")(() => ({
   width: "100px",
   margin: "10px",
+  "@media(max-width:1011px)": {
+    width: "70px",
+  },
 }));
 export const Display = styled("div")({
   display: "flex",
@@ -26,6 +42,22 @@ export const Display = styled("div")({
 export const LeftDisplay = styled("div")({
   padding: "60px 60px 60px 240px",
   width: "100%",
+  "@media (max-width:1540px)": {
+    padding: "60px 60px 60px 140px",
+  },
+  "@media (max-width:1000px)": {
+    padding: "100px 60px",
+  },
+  "@media (max-width:582px)": {
+    margin: "auto",
+  },
+});
+export const AppDonloadImgMid = styled("img")({
+  width: "150px",
+  marginRight: "13px",
+  "@media(max-width:1208px)": {
+    width: "100px",
+  },
 });
 export const RightDisplay = styled("div")({
   width: "100%",
@@ -33,15 +65,38 @@ export const RightDisplay = styled("div")({
   display: "flex",
   position: "relative",
   justifyContent: "center",
+  "@media (max-width:1400px)": {
+    width: "80%",
+  },
+  "@media (max-width:1000px)": {
+    display: "none",
+  },
   // alignItems: "center",
 });
-export const Btn = styled("span")({});
+export const Btn = styled("span")({
+  "@media (max-width:1640px)": {
+    // backgroundColor: "red",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 export const Heading = styled("div")({
   display: "flex",
   justifyContent: "space-between",
+  "@media (max-width:523px)": {
+    display: "flex",
+    flexDirection: "column",
+  },
 });
 export const CompanyImg = styled("span")({
   width: "5px",
+  "@media (max-width:523px)": {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
 });
 export const SignInBtn = styled(Button)((props) => ({
   width: "110px",
@@ -55,6 +110,11 @@ export const SignInBtn = styled(Button)((props) => ({
     color: props.theme.customPalette.White,
     backgroundColor: "black",
   },
+  "@media(max-width:1142px)": {
+    fontSize: "0.6rem",
+    width: "4rem",
+    height: "1.5rem",
+  },
 }));
 export const LoginBtn = styled(Button)((props) => ({
   color: "black",
@@ -66,6 +126,10 @@ export const LoginBtn = styled(Button)((props) => ({
     color: props.theme.customPalette.Orange,
     backgroundColor: "transparent",
   },
+  "@media(max-width:1142px)": {
+    fontSize: "0.8rem",
+    width: "3rem",
+  },
 }));
 
 export const Description = styled("div")(() => ({
@@ -75,6 +139,10 @@ export const Description = styled("div")(() => ({
 export const SearchBar = styled("div")(() => ({
   display: "flex",
   width: "100%",
+  "@media (max-width:523px)": {
+    display: "flex",
+    flexDirection: "column",
+  },
 }));
 export const LocationInput = styled(TextField)(() => ({
   width: "100%",
@@ -93,6 +161,16 @@ export const LocationInput = styled(TextField)(() => ({
       },
     },
   },
+  "@media(max-width:1141px)": {
+    "& .MuiInputBase-input": {
+      height: "10px",
+    },
+  },
+  "@media(max-width:1000px)": {
+    "& .MuiInputBase-input": {
+      height: "auto",
+    },
+  },
 }));
 export const FindLocationBtn = styled(Button)((props) => ({
   backgroundColor: props.theme.customPalette.Orange,
@@ -102,6 +180,32 @@ export const FindLocationBtn = styled(Button)((props) => ({
 
   "&:hover": {
     backgroundColor: props.theme.customPalette.Orange,
+  },
+  "@media(max-width:1141px)": {
+    fontSize: "14px",
+    width: "150px",
+  },
+  "@media(max-width:1000px)": {
+    fontSize: "15px",
+    // width: "150px",
+  },
+  "@media(max-width:625px)": {
+    fontSize: "13px",
+    // width: "150px",
+  },
+
+  "@media (max-width:523px)": {
+    width: "100%",
+    height: "50px",
+    margin: "10px 0px",
+  },
+  // "@media(max-width:)"
+}));
+export const PartyPImg = styled("img")(() => ({
+  // width: "20rem",
+  width: "350px",
+  "@media(max-width:1280px)": {
+    width: "250px",
   },
 }));
 export const OptionsInput = styled(TextField)(() => ({
@@ -139,23 +243,39 @@ export const OptionsInput = styled(TextField)(() => ({
 export const OurServicesCities = styled("div")((props) => ({
   fontSize: "15px",
   color: props.theme.customPalette.Grey,
+  "@media(max-width:1141px)": {
+    // height: "10px",
+    fontSize: "14px",
+  },
 }));
 export const HDisplay = styled("h1")(() => ({
   fontSize: "40px",
   margin: "0px",
   padding: "0px",
+  "@media(max-width:1141px)": {
+    fontSize: "30px",
+  },
 }));
 
 export const PDisplay = styled("p")((props) => ({
   paddingTop: "0px",
   marginTop: "0px",
   color: props.theme.customPalette.Grey,
+  "@media(max-width:1141px)": {
+    fontSize: "15px",
+  },
 }));
 
 export const WhiteH3 = styled("h3")(() => ({
   fontSize: "18px",
   marginBottom: "10px",
   padding: "0px",
+  "@media(max-width:1011px)": {
+    fontSize: "15px",
+  },
+  "@media(max-width:713px)": {
+    fontSize: "12px",
+  },
 }));
 
 export const PWhite = styled("p")(() => ({
@@ -167,6 +287,12 @@ export const PWhite = styled("p")(() => ({
   fontSize: "15px",
   margin: "0px",
   padding: "0px",
+  "@media(max-width:1011px)": {
+    fontSize: "12px",
+  },
+  "@media(max-width:713px)": {
+    fontSize: "11px",
+  },
 }));
 
 // mid body
@@ -180,6 +306,15 @@ export const Midbody = styled("body")(() => ({
 export const AppDonloadImg = styled("img")(() => ({
   width: "150px",
   marginRight: "13px",
+  "@media(max-width:1208px)": {
+    width: "100px",
+  },
+  "@media(max-width:1000px)": {
+    display: "none",
+  },
+  "@media(max-width:449px)": {
+    display: "block",
+  },
 }));
 
 export const PhoneImg = styled("img")(() => ({
@@ -195,10 +330,31 @@ export const FooterBody = styled("div")((props) => ({
   color: props.theme.customPalette.White,
   display: "grid",
   gridTemplateColumns: "repeat(4,1fr)",
+  "@media(max-width:1000px)": {
+    // width: "100px",
+    gridTemplateColumns: "repeat(3,1fr)",
+  },
+  "@media(max-width:449px)": {
+    gridTemplateColumns: "repeat(2,1fr)",
+  },
 }));
 
 export const FooterBox = styled("div")(() => ({
   margin: "60px 60px 60px 60px",
+  "@media(max-width:750px)": {
+    // width: "100px",
+    margin: "10px",
+  },
+}));
+
+export const FooterBoxLast = styled("div")(() => ({
+  margin: "60px 60px 60px 60px",
+  "@media(max-width:1000px)": {
+    display: "none",
+  },
+  "@media(max-width:449px)": {
+    display: "block",
+  },
 }));
 
 export const FooterBoxHeading = styled("div")((props) => ({
@@ -208,6 +364,12 @@ export const FooterBoxHeading = styled("div")((props) => ({
   flexDirection: "column",
   alignItems: "center",
   padding: "14px 0px",
+  "@media(max-width:1208px)": {
+    fontSize: "15px",
+
+    // color: "red",
+    // width: "150px",
+  },
 }));
 
 export const DWhite = styled("div")(() => ({
@@ -219,6 +381,10 @@ export const DWhite = styled("div")(() => ({
   fontSize: "18px",
   margin: "0px",
   padding: "0px 0px",
+  "@media(max-width:1208px)": {
+    fontSize: "13px",
+    // width: "150px",
+  },
 }));
 
 // login Drawer
@@ -237,6 +403,17 @@ export const CloseButton = styled(Button)((props) => ({
 export const Drawerdiv = styled("div")(() => ({
   margin: "30px 230px 30px 60px",
   width: "400px",
+  "@media (max-width:900px)": {
+    margin: "30px 60px 30px 30px",
+  },
+  "@media (max-width:700px)": {
+    margin: "30px",
+  },
+  "@media (max-width:469px)": {
+    margin: "20px",
+    padding: "0px",
+    width: "auto",
+  },
 }));
 
 export const DrawerTop = styled("div")(() => ({
@@ -249,6 +426,9 @@ export const LoginText = styled("h3")(() => ({
   fontSize: "30px",
   marginBottom: "0px",
   paddingBottom: "0px ",
+  "@media (max-width:478px)": {
+    fontSize: "20px",
+  },
 }));
 
 export const CreateAccText = styled("p")(() => ({
@@ -264,6 +444,9 @@ export const LoginSpan = styled(Button)((props) => ({
   "&:hover": {
     backgroundColor: "transparent",
   },
+  "@media (max-width:478px)": {
+    fontSize: "12px",
+  },
 }));
 export const LoginRight = styled("div")(() => ({
   display: "flex",
@@ -274,6 +457,10 @@ export const LoginDrawerImg = styled("img")(() => ({
   width: "80px",
   height: "80px",
   borderRadius: "50%",
+  "@media (max-width:700px)": {
+    width: "50px",
+    height: "50px",
+  },
 }));
 export const HrDwawer = styled("div")((props) => ({
   width: "40px",
