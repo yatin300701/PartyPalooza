@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  AppDonloadImg,
   AppDonloadImgMid,
   Benefits,
   BenefitsCard,
