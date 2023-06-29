@@ -47,23 +47,18 @@ export default function HomePage() {
   const [type, setType] = useState("");
 
   const navigate = useNavigate();
-  // const [location, setLocation] = useState("");
-
-  // const sentences: string[] = [
-  //   "Important Event?",
-  //   "Someone Leaving?",
-  //   "Target Achieved?",
-  //   "Upword Growth?",
-  // ];
 
   const myImage = new CloudinaryImage("party2_vmlavp.jpg", {
     cloudName: "dhlgspecl",
-  }).resize(fill().width(700).height(467));
+  }).resize(
+    fill()
+      .width(700)
+      .height(467)
+  );
 
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        localStorage.clear();
       } catch (error) {
         console.error("Error fetching image:", error);
       }
@@ -76,9 +71,12 @@ export default function HomePage() {
     if (
       location === "Delhi" ||
       location === "Mumbai" ||
-      location === "Gurgaon"
+      location === "Gurgaon" ||
+      location === "delhi" ||
+      location === "mumbai" ||
+      location === "gurgaon"
     ) {
-      localStorage.setItem("location", location);
+      localStorage.setItem("location", location.toUpperCase());
       setMessage("Sucessfully Saved your location");
       setType("success");
       setOpen(true);
@@ -119,10 +117,12 @@ export default function HomePage() {
                   setReload={setReload}
                   loginToggle={loginToggle}
                   setLoginToggle={setLoginToggle}
+                  setSignupToggle={setSignupToggle}
                 />
                 <SignUpComponent
                   signupToggle={signupToggle}
                   setSignupToggle={setSignupToggle}
+                  setLoginToggle={setLoginToggle}
                 />
               </Btn>
             </Heading>
@@ -138,7 +138,7 @@ export default function HomePage() {
                   "& .MuiInputLabel-root": {
                     color: theme.customPalette.Grey,
                     opacity: 0.5,
-                  }, //styles the label
+                  },
                   "& .MuiOutlinedInput-root.Mui-focused": {
                     "& > fieldset": {
                       borderColor: theme.customPalette.Orange,
@@ -149,7 +149,6 @@ export default function HomePage() {
                 onChange={(e) => setLocation(e.target.value)}
               ></LocationInput>
               <FindLocationBtn variant="contained" onClick={handleFindFood}>
-                {" "}
                 Find Food
               </FindLocationBtn>
             </SearchBar>
@@ -209,7 +208,6 @@ export default function HomePage() {
           </BenefitsCard>
         </Benefits>
       </Topbody>
-      {/* party at your wish */}
       <Midbody>
         <LeftDisplay>
           <HDisplay>Party Anywhere </HDisplay>

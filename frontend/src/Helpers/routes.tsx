@@ -6,6 +6,7 @@ import ChooseCakePage from "../RoutePages/ChooseCakePage";
 import ChooseDecorationPage from "../RoutePages/ChooseDecorationPage";
 import ChooseSpeakerPage from "../RoutePages/ChooseSpeakerPage";
 import CheckoutPage from "../RoutePages/CheckoutPage";
+import Description from "../RoutePages/Description";
 
 Cookies.set("name", "value");
 
@@ -35,6 +36,10 @@ const routes: { path: string; component: React.ReactNode }[] = [
   {
     path: "/checkout",
     component: <CheckoutPage />,
+  },
+  {
+    path: "/details/:type/:id",
+    component: <Description />,
   },
   {
     path: "*",

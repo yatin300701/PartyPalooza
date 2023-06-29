@@ -9,9 +9,12 @@ export default function SnackbarComponent(props: any) {
 
   return (
     <Snackbar
-      anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+      anchorOrigin={{
+        horizontal: "center",
+        vertical: props.vertical ?? "bottom",
+      }}
       open={props.open}
-      autoHideDuration={1000}
+      autoHideDuration={props.duration ?? 1000}
       onClose={handleClose}
     >
       <Alert onClose={handleClose} severity={props.type} sx={{ width: "100%" }}>

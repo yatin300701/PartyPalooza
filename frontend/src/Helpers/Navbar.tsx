@@ -4,7 +4,9 @@ import {
   CakeNavLeft,
   CakeNavRight,
   CakePlace,
+  CakePlaceLocation,
   CompanyImg,
+  Option,
 } from "../Styles/CakeNav.style";
 import CompanyLogo from "../assets/Logo.png";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -12,16 +14,26 @@ import { MdOutlineHelpOutline, MdPersonOutline } from "react-icons/md";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import LoginComponent from "./LoginComponent";
 import { useNavigate } from "react-router-dom";
+import SignUpComponent from "./SignUpComponent";
+import SignOut from "./SignOut";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [loginToggle, setLoginToggle] = useState(false);
-  const [localtion, setLocation] = useState("Other");
-  const [user, setUser] = useState("");
+  const [localtiondefault, setLocation] = useState<any>("OTHER");
+  const [user, setUser] = useState<any>();
   const [reload, setReload] = useState(false);
+  const [signupToggle, setSignupToggle] = useState(false);
+  const [signOut, setSignOut] = useState(false)
+
+
   useEffect(() => {
-    let tuse = localStorage.getItem("user");
+    let use = localStorage.getItem("user");
+    if (use == undefined) return;
+    let tuse = JSON.parse(use);
     let loc = localStorage.getItem("location");
+
+    console.log("userit", tuse);
 
     if (loc != undefined && loc != null) {
       setLocation(loc);
@@ -39,9 +51,13 @@ export default function Navbar() {
             src={CompanyLogo}
             onClick={() => navigate("/")}
           ></CompanyImg>
-          <CakePlace onClick={() => navigate("#")}>
-            {localtion} <IoMdArrowDropdown />
-          </CakePlace>
+          <CakePlaceLocation value={localtiondefault} onClick={() => navigate("#")} onChange={(e) => setLocation(e.target.value)}>
+            <Option value="OTHER">OTHER</Option>
+            <Option value="DELHI">DELHI</Option>
+            <Option value="MUMBAI" >MUMBAI</Option>
+            <Option value="GURGAON">GURGAON</Option>
+            {/* {localtion} <IoMdArrowDropdown /> */}
+          </CakePlaceLocation>
         </CakeNavLeft>
         <CakeNavRight>
           <CakePlace onClick={() => navigate("#")}>
@@ -49,12 +65,12 @@ export default function Navbar() {
           </CakePlace>
           <CakePlace
             onClick={() => {
-              user == "" ? setLoginToggle(true) : "";
+              user == undefined ? setLoginToggle(true) : setSignOut(true);
             }}
           >
-            {user != "" ? (
+            {user != null ? (
               <>
-                <MdPersonOutline /> {user}
+                <MdPersonOutline /> {user?.username.split(" ")[0]}
               </>
             ) : (
               <>
@@ -66,11 +82,22 @@ export default function Navbar() {
             <AiOutlineShoppingCart /> Cart
           </CakePlace>
         </CakeNavRight>
-      </CakeNavBody>
+      </CakeNavBody >
       <LoginComponent
         setReload={setReload}
         loginToggle={loginToggle}
         setLoginToggle={setLoginToggle}
+        setSignupToggle={setSignupToggle}
+      />
+      <SignUpComponent
+        signupToggle={signupToggle}
+        setSignupToggle={setSignupToggle}
+        setLoginToggle={setLoginToggle}
+      />
+      <SignOut setReload={setReload}
+        loginToggle={signOut}
+        setUser={setUser}
+        setLoginToggle={setSignOut}
       />
     </>
   );

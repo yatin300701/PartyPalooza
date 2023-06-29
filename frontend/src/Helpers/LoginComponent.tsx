@@ -19,18 +19,76 @@ import { theme } from "../mui-theme";
 import { useState } from "react";
 import SnackbarComponent from "./Snackbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function LoginComponent(props: any) {
+  const [email, setEmail] = useState("");
+  const [otpInput, setOtpInput] = useState(false);
+  const [otp, setOtp] = useState("");
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    setMessage("We are Working on it, Please login with Temporary Login");
-    setType("error");
-    setOpen(true);
+  const handleLogin = async () => {
+    try {
+      const result = await axios.post("http://localhost:3002/api/login", {
+        email: email,
+      });
+      setOtpInput(true);
+      console.log(result);
+      setMessage("OTP send");
+      setType("success");
+      setOpen(true);
+    } catch (e) {
+      console.log("Error fetching image:", e);
+      setMessage(`Error ${e}`);
+      setType("error");
+      setOpen(true);
+    }
   };
+
+  const handleOtpLogin = async () => {
+    try {
+      const result: any = await axios.post(
+        "http://localhost:3002/api/loginotp",
+        {
+          email: email,
+          otp: otp,
+        }
+      );
+
+      const token = result.data[0];
+      const user = result.data[1];
+
+      console.log("result is : ", result);
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      console.log("token is", localStorage.getItem("token"));
+      console.log("user is", localStorage.getItem("user"));
+
+      setMessage("Signin successfully");
+      setType("success");
+      setEmail("");
+      setOpen(true);
+      setOtpInput(false);
+      props.setReload((e: any) => !e)
+      navigate("/cake");
+    } catch (e) {
+      console.log("Error fetching image:", e);
+      setMessage(`Error ${e}`);
+      setType("error");
+      setOpen(true);
+    }
+  };
+
+  const handleCreateAccount = () => {
+    props.setLoginToggle(false);
+    props.setSignupToggle(true);
+  };
+
   const handleTempLogin = () => {
     setMessage("Successfully loged in as Temp");
     setType("success");
@@ -57,7 +115,10 @@ export default function LoginComponent(props: any) {
             <LoginLeft>
               <LoginText>Login</LoginText>
               <CreateAccText>
-                or <LoginSpan>create an account</LoginSpan>
+                or{" "}
+                <LoginSpan onClick={handleCreateAccount}>
+                  create an account
+                </LoginSpan>
               </CreateAccText>
             </LoginLeft>
             <LoginRight>
@@ -67,8 +128,8 @@ export default function LoginComponent(props: any) {
           <HrDwawer></HrDwawer>
           <DrawerBottom>
             <DrawerInput
-              label="Phone Number"
-              type="number"
+              label="Email"
+              onChange={(e: any) => setEmail(() => e.target.value)}
               sx={{
                 "& .MuiInputLabel-root": {
                   color: theme.customPalette.Grey,
@@ -87,7 +148,36 @@ export default function LoginComponent(props: any) {
                 },
               }}
             ></DrawerInput>
-            <DrawerBttn onClick={handleLogin}>Login</DrawerBttn>
+            {otpInput == true ? (
+              <DrawerInput
+                label="OTP"
+                onChange={(e) => setOtp(() => e.target.value)}
+                sx={{
+                  "& .MuiInputLabel-root": {
+                    color: theme.customPalette.Grey,
+                    opacity: 0.5,
+                  }, //styles the label
+                  "& .MuiOutlinedInput-root.Mui-focused": {
+                    "& > fieldset": {
+                      borderColor: theme.customPalette.Grey,
+                      border: "1px solid rgb(83, 86, 101,0.5)",
+                    },
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    borderRadius: "0px",
+                  },
+                }}
+              ></DrawerInput>
+            ) : (
+              <></>
+            )}
+            {otpInput == false ? (
+              <DrawerBttn onClick={handleLogin}>Login</DrawerBttn>
+            ) : (
+              <DrawerBttn onClick={handleOtpLogin}>Send Otp</DrawerBttn>
+            )}
             <Button
               style={{ margin: "0px 0px 10px 0px" }}
               onClick={handleTempLogin}
